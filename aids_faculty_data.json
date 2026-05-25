@@ -1,73 +1,329 @@
 [
   {
+    "faculty_id": "AIDS_FAC_001",
     "name": "Dr Narayana Rao Appini",
-    "designation": "Head of the Department",
-    "specialization": "Computer Networks, Machine Learning",
-    "Qualification" : "2017-Ph.D-JNTU Ananthapur,2008-M.Tech-JNTU Ananthapur,2005-B.Tech-Narayana Engineering College-Gudur"
+    "designation": "Head of the Department, Department of AI and DS",
+    "qualification": [
+      "Ph.D - JNTU Ananthapur (2017)",
+      "M.Tech - JNTU Ananthapur (2008)",
+      "B.Tech - Narayana Engineering College Gudur (2005)"
+    ],
+    "experience": "2022–Present: Head of the Department, AI & DS, NBKR Institute of Science and Technology; previously worked as Professor, Associate Professor, and Assistant Professor in various institutions.",
+    "specialization": [
+      "Software Engineering",
+      "Computer Networks",
+      "Machine Learning"
+    ],
+    "additional_information": {
+      "patents": [
+        "COMBINATION RECOGNITION OF NODE REPLICATION ATTACKS IN MSN",
+        "IMPLEMENTING MICRO CIPHER ALGORITHM (MCA) USING DDC & 3D IN CRYPTOGRAPHY",
+        "Compact Multi-Functional Smart Laptop"
+      ],
+      "research_interests": [
+        "Wireless Mesh Networks",
+        "Machine Learning",
+        "Computer Networks",
+        "Cyber Security",
+        "Digital Farming",
+        "Cloud Computing"
+      ],
+      "publications": [
+        "Joint Channel Assignment and Bandwidth Reservation Using Improved FireFly Algorithm (IFA) in Wireless Mesh Networks (WMN)",
+        "Dynamic mobility management scheme for inter handoff in hybrid wireless mesh networks",
+        "QoS-Aware Service Selection and Multicast Framework for Wireless Mesh Networks",
+        "Phishing URL Detection with Gradient Boosting Classifier",
+        "Analysis of Wireless Mesh Networks in Machine Learning Approaches",
+        "A Review on Digital Farming using Machine Learning Techniques",
+        "Python for Beginners"
+      ]
+    }
   },
   {
+    "faculty_id": "AIDS_FAC_002",
     "name": "Prof Nataraja Suresh Myle",
     "designation": "Professor",
-    "specialization": "Computer Science"
+    "qualification": [
+      "MTech - University of Hyderabad (2002)"
+    ],
+    "experience": "2010–Present: Professor, Department of AI and DS, NBKR Institute of Science and Technology, Vidyanagar",
+    "specialization": [
+      "Computer Science",
+      "Artificial Intelligence"
+    ],
+    "additional_information": {
+      "patents": [],
+      "research_interests": [
+        "Computer Science",
+        "Artificial Intelligence"
+      ],
+      "publications": []
+    }
   },
   {
+    "faculty_id": "AIDS_FAC_003",
     "name": "Mr Venkata Mahendra Tatiparthi",
     "designation": "Associate Professor",
-    "specialization": "Computer Science"
+    "qualification": [
+      "M.Tech - Acharya Nagarjuna University (2006)"
+    ],
+    "experience": "2014–Present: Associate Professor, Department of AI and DS, NBKR Institute of Science and Technology, Vidyanagar; 2007–2014: Associate Professor, CSE, Narayana Engineering College; 2000–2007: Assistant Professor (Grade-I), CSE, NBKR Institute of Science and Technology, Vidyanagar.",
+    "specialization": [
+      "Computer Science",
+      "Artificial Intelligence"
+    ],
+    "additional_information": {
+      "patents": [
+        "Smart Secure Payments Leveraging AI and Blockchain for Money Transaction Security"
+      ],
+      "research_interests": [
+        "Artificial Intelligence",
+        "Computer Science"
+      ],
+      "publications": [
+        "5 publications available on NBKR IRINS profile (2016–2024)"
+      ]
+    }
   },
   {
-    "name": "Dr Lakshmana Rao B",
-    "designation": "Associate Professor",
-    "specialization": "Computer Science, Software Engineering"
-  },
-  {
+    "faculty_id": "AIDS_FAC_004",
     "name": "Ms Manne Sujana",
     "designation": "Assistant Professor",
-    "specialization": "AI, Deep Learning"
+    "qualification": [
+      "M.Tech"
+    ],
+    "experience": "Not Available",
+    "specialization": [
+      "Artificial Intelligence",
+      "Data Science",
+      "Computer Science"
+    ],
+    "additional_information": {
+      "patents": [],
+      "research_interests": [
+        "Artificial Intelligence",
+        "Data Science",
+        "Machine Learning"
+      ],
+      "publications": []
+    }
   },
   {
+    "faculty_id": "AIDS_FAC_005",
     "name": "Mr Mekala Sivapratap Reddy",
     "designation": "Assistant Professor",
-    "specialization": "Machine Learning, Social Networks, Security"
+    "qualification": [
+      "M.Tech"
+    ],
+    "experience": "Not Available",
+    "specialization": [
+      "Machine Learning",
+      "Social Networks", 
+       "Security"
+    ],
+    "additional_information": {
+      "patents": [],
+      "research_interests": [
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Data Science"
+      ],
+      "publications": []
+    }
   },
   {
+    "faculty_id": "AIDS_FAC_006",
     "name": "Mr Chiranjeevi S V",
     "designation": "Assistant Professor",
-    "specialization": "Computer Organization, DBMS, DLD, CN"
+    "qualification": [
+      "M.Tech - Quba College of Engineering & Technology (2012)",
+      "B.Tech - Narayana Engineering College, Gudur (2006)"
+    ],
+    "experience": "2021–Present: Assistant Professor, Department of AI and DS, NBKR Institute of Science and Technology, Vidyanagar; 2018–2021: Assistant Professor, CSE, Rami Reddy Subbarami Reddy Engineering College, Kavali; 2007–2018: Assistant Professor, CSE, Priyadarshini Engineering College.",
+    "specialization": [
+      "Computer Science",
+      "Information Systems",
+      "Computer Organization",
+      "DBMS",
+      "Digital Logic Design",
+      "Computer Networks"
+    ],
+    "additional_information": {
+      "patents": [],
+      "research_interests": [
+        "Computer Science Information Systems",
+        "Database Management Systems",
+        "Computer Networks",
+        "Computer Organization"
+      ],
+      "publications": [
+        "2 journal publications available on NBKR IRINS profile (2015–2022)"
+      ]
+    }
   },
   {
+    "faculty_id": "AIDS_FAC_007",
     "name": "Mrs Chandrakala Palem",
     "designation": "Assistant Professor",
-    "specialization": "Computer Science"
+    "qualification": [
+      "M.Tech"
+    ],
+    "experience": "Not Available",
+    "specialization": [
+      "Artificial Intelligence",
+      "Data Science",
+      "Computer Science"
+    ],
+    "additional_information": {
+      "patents": [],
+      "research_interests": [
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Data Science"
+      ],
+      "publications": []
+    }
   },
   {
+    "faculty_id": "AIDS_FAC_008",
     "name": "Mr Venkateswarlu Avula",
     "designation": "Assistant Professor",
-    "specialization": "Artificial Intelligence, enabling machines"
+    "qualification": [
+      "M.Tech"
+    ],
+    "experience": "Not Available",
+    "specialization": [
+      "Artificial Intelligence",
+      "Data Science",
+      "Computer Science"
+    ],
+    "additional_information": {
+      "patents": [],
+      "research_interests": [
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Data Science"
+      ],
+      "publications": []
+    }
   },
   {
+    "faculty_id": "AIDS_FAC_009",
     "name": "Dr Mamatha Sekireddy",
     "designation": "Assistant Professor",
-    "specialization": "AI and DS Department"
+    "qualification": [
+      "Ph.D - SPMVV, Tirupati (2025)",
+      "M.Tech - Audisankara College of Engineering & Technology, Gudur (2015)",
+      "B.Tech - Narayana Engineering College, Gudur (2012)"
+    ],
+    "experience": "2014–Present: Assistant Professor, Department of AI and DS, NBKR Institute of Science and Technology, Vidyanagar; 2014: Assistant Professor, Department of Computer Science and Engineering, NBKR Institute of Science and Technology, Vidyanagar.",
+    "specialization": [
+      "Computer Science",
+      "Artificial Intelligence"
+    ],
+    "additional_information": {
+      "patents": [],
+      "research_interests": [
+        "Artificial Intelligence",
+        "Computer Science",
+        "Machine Learning"
+      ],
+      "publications": [
+        "5 publications available on NBKR IRINS profile (2018–2024)",
+        "1 journal article",
+        "1 book chapter",
+        "2 conference proceedings",
+        "1 book"
+      ]
+    }
   },
   {
+    "faculty_id": "AIDS_FAC_010",
     "name": "Mrs Kalyani Bondu",
     "designation": "Assistant Professor",
-    "specialization": "Software Engineering"
+    "qualification": [
+      "M.Tech"
+    ],
+    "experience": "Not Available",
+    "specialization": [
+      "Artificial Intelligence",
+      "Data Science",
+      "Computer Science"
+    ],
+    "additional_information": {
+      "patents": [],
+      "research_interests": [
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Data Science"
+      ],
+      "publications": []
+    }
   },
   {
+    "faculty_id": "AIDS_FAC_011",
     "name": "Ms Swarnalatha V",
     "designation": "Assistant Professor",
-    "specialization": "Python Programming, Digital Logic Design, Programming"
+    "qualification": [
+      "M.Tech"
+    ],
+    "experience": "Not Available",
+    "specialization": [
+      "Artificial Intelligence",
+      "Data Science",
+      "Computer Science"
+    ],
+    "additional_information": {
+      "patents": [],
+      "research_interests": [
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Data Science"
+      ],
+      "publications": []
+    }
   },
   {
-    "name": "Mr P PENCHALA PRASANTH",
+    "faculty_id": "AIDS_FAC_012",
+    "name": "Mr P Penchala Prasanth",
     "designation": "Assistant Professor",
-    "specialization": "Artificial Intelligence"
+    "qualification": ["M.Tech"],
+    "experience": "Not Available",
+    "specialization": [
+      "Computer Science",
+      "Artificial Intelligence"
+    ],
+    "additional_information": {
+      "patents": ["PREDICTIVE ANALYSIS OF STOCK MARKET TRENDS USING AI AND MACHINE LEARNING TECHNIQUES",
+"System and Method for Extracting and Structuring Clinical Data Using NLP"],
+      "research_interests": [
+        "Computer Science",
+        "Artificial Intelligence"
+      ],
+      "publications": []
+    }
   },
   {
+    "faculty_id": "AIDS_FAC_013",
     "name": "Mrs Pitti Jyothi",
     "designation": "Assistant Professor",
-    "specialization": "Teaching expert with 7+ years of experience"
+    "qualification": [
+      "M.Tech"
+    ],
+    "experience": "Teaching expert with 7+ years of experience.",
+    "specialization": [
+      "Artificial Intelligence",
+      "Data Science",
+      "Computer Science"
+    ],
+    "additional_information": {
+      "patents": ["Elevating File Security Through Advanced Multiple        Image Steganography"],
+      "research_interests": [
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Data Science"
+      ],
+      "publications": []
+    }
   }
 ]

@@ -33,6 +33,11 @@ def preprocess_all_data():
     if os.path.exists("data/raw/faculty_data.csv"):
         print("  Processing faculty data...")
         df = pd.read_csv("data/raw/faculty_data.csv")
+        df["content"] = (
+    df["name"].fillna('') + " " +
+    df["designation"].fillna('') + " " +
+    df["specialization"].fillna('')
+)
         df["cleaned"] = df["content"].apply(clean_text)
         df = df[df["cleaned"].str.len() > 20]
         df.to_csv("data/cleaned/cleaned_faculty.csv", index=False)

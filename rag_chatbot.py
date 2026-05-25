@@ -265,6 +265,22 @@ def detect_intent(query: str, qa: QueryAnalysis) -> str:
             or qa.person_names
             or any(w in q for w in ["who is","who teaches","hod","head of"])):
         return "faculty"
+    # ── Name-match rescue: check if any token/phrase matches a faculty name ──
+    # Catches bare names ("prasanth", "sujana") and qualification/designation
+    # queries ("qualification of chiranjeevi") that slip past lemma signals.
+    if _FACULTY_DATA:
+        candidate = re.sub(
+            r'\b(qualification|specialization|designation|details|info|about|'
+            r'tell me about|who is|of|the)\b',
+            '', q, flags=re.IGNORECASE
+        ).strip()
+        if candidate:
+            for fac in _FACULTY_DATA:
+                fname = fac.get("name", "").lower()
+                fname_parts = [p for p in re.split(r'\s+', fname) if len(p) > 2]
+                cand_parts  = [p for p in re.split(r'\s+', candidate) if len(p) > 2]
+                if any(cp in fname or fname in cp for cp in cand_parts):
+                    return "faculty"
     if signals & service_lemmas:
         return "services"
     return "general"
@@ -319,7 +335,7 @@ def build_faculty_list_table(faculty_list=None):
                  f'<td {_FTD_C}>{i}</td>'
                  f'<td {_FTD}><b>{f.get("name","—")}</b></td>'
                  f'<td {_FTD}>{_badge(f.get("designation","—"))}</td>'
-                 f'<td {_FTD} style="color:#555">{f.get("specialization","—")}</td>'
+                 f'<td {_FTD} style="color:#555">{", ".join(f.get("specialization", [])) if isinstance(f.get("specialization", []), list) else f.get("specialization","—")}</td>' 
                  f'</tr>')
     return f"""
 <div style="margin:8px 0;font-family:'Segoe UI',sans-serif">
@@ -344,28 +360,179 @@ def build_faculty_list_table(faculty_list=None):
 
 
 def build_faculty_card(f):
-    name  = f.get("name","—")
-    desig = f.get("designation","—")
-    spec  = f.get("specialization","—")
-    qual  = f.get("Qualification","")
+    name  = f.get("name", "—")
+    desig = f.get("designation", "—")
+
+    spec = f.get("specialization", [])
+    qual = f.get("qualification", [])
+    exp  = f.get("experience", "Not Available")
+
+    add_info = f.get("additional_information", {})
+
+    patents = add_info.get("patents", [])
+    research = add_info.get("research_interests", [])
+    publications = add_info.get("publications", [])
+
+    # ─────────────────────────────────────────
+    # Convert lists to HTML
+    # ─────────────────────────────────────────
+
+    # Specialization
+    if isinstance(spec, list):
+        spec_html = "<br>".join([f"• {s}" for s in spec])
+    else:
+        spec_html = spec
+
+    # Qualifications
     qual_html = ""
     if qual:
-        entries = [e.strip() for e in qual.split(",") if e.strip()]
-        qual_rows = "".join(f'<tr><td {_FTD} style="color:#555">{e}</td></tr>' for e in entries)
-        qual_html = f'<tr><td {_FTD} style="font-weight:700;color:#555">🎓 Qualifications</td><td {_FTD}><table style="border-collapse:collapse">{qual_rows}</table></td></tr>'
+        if isinstance(qual, list):
+            entries = qual
+        else:
+            entries = [str(qual)]
+
+        qual_rows = "".join(
+            f'<div style="margin-bottom:4px">• {e}</div>'
+            for e in entries
+        )
+
+        qual_html = f'''
+        <tr>
+            <td {_FTD} style="font-weight:700;color:#555">
+                🎓 Qualifications
+            </td>
+            <td {_FTD}>
+                {qual_rows}
+            </td>
+        </tr>
+        '''
+
+    # Patents
+    patents_html = ""
+    if patents:
+        patent_rows = "".join(
+            f'<div style="margin-bottom:4px">• {p}</div>'
+            for p in patents
+        )
+
+        patents_html = f'''
+        <tr>
+            <td {_FTD} style="font-weight:700;color:#555">
+                📜 Patents
+            </td>
+            <td {_FTD}>
+                {patent_rows}
+            </td>
+        </tr>
+        '''
+
+    # Research Interests
+    research_html = ""
+    if research:
+        research_rows = "".join(
+            f'<div style="margin-bottom:4px">• {r}</div>'
+            for r in research
+        )
+
+        research_html = f'''
+        <tr>
+            <td {_FTD} style="font-weight:700;color:#555">
+                🔍 Research Interests
+            </td>
+            <td {_FTD}>
+                {research_rows}
+            </td>
+        </tr>
+        '''
+
+    # Publications
+    publications_html = ""
+    if publications:
+        publication_rows = "".join(
+            f'<div style="margin-bottom:4px">• {p}</div>'
+            for p in publications
+        )
+
+        publications_html = f'''
+        <tr>
+            <td {_FTD} style="font-weight:700;color:#555">
+                📚 Publications
+            </td>
+            <td {_FTD}>
+                {publication_rows}
+            </td>
+        </tr>
+        '''
+
+    # ─────────────────────────────────────────
+    # Final Faculty Card
+    # ─────────────────────────────────────────
+
     return f"""
 <div style="margin:8px 0;font-family:'Segoe UI',sans-serif">
-  <div style="background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:10px 16px;border-radius:8px 8px 0 0">
+
+  <div style="
+      background:linear-gradient(135deg,#667eea,#764ba2);
+      color:#fff;
+      padding:10px 16px;
+      border-radius:8px 8px 0 0">
+
     <b>👤 {name}</b>
+
   </div>
-  <div style="border:1px solid #ddd;border-top:none;border-radius:0 0 8px 8px;overflow:hidden">
+
+  <div style="
+      border:1px solid #ddd;
+      border-top:none;
+      border-radius:0 0 8px 8px;
+      overflow:hidden">
+
     <table style="width:100%;border-collapse:collapse">
-      <tr style="background:#f8f9ff"><td {_FTD} style="font-weight:700;color:#555;width:160px">🏷️ Designation</td><td {_FTD}>{_badge(desig)}</td></tr>
-      <tr><td {_FTD} style="font-weight:700;color:#555">🔬 Specialization</td><td {_FTD}>{spec}</td></tr>
+
+      <tr style="background:#f8f9ff">
+          <td {_FTD} style="font-weight:700;color:#555;width:180px">
+              🏷️ Designation
+          </td>
+
+          <td {_FTD}>
+              {_badge(desig)}
+          </td>
+      </tr>
+
+      <tr>
+          <td {_FTD} style="font-weight:700;color:#555">
+              🔬 Specialization
+          </td>
+
+          <td {_FTD}>
+              {spec_html}
+          </td>
+      </tr>
+
       {qual_html}
+
+      <tr>
+          <td {_FTD} style="font-weight:700;color:#555">
+              📅 Experience
+          </td>
+
+          <td {_FTD}>
+              {exp}
+          </td>
+      </tr>
+
+      {research_html}
+
+      {patents_html}
+
+      {publications_html}
+
     </table>
+
   </div>
-</div>"""
+
+</div>
+"""
 
 
 def build_specialization_table(spec_label, faculty_list):
@@ -491,10 +658,7 @@ def load_knowledge_base() -> List[Dict]:
             for fac in json.load(f):
                 name  = fac.get("name","")
                 desig = fac.get("designation","")
-                spec  = fac.get("specialization","")
-                qual  = fac.get("Qualification","")
-                text  = f"{name} is {desig} in AI & DS Department at NBKR. Specialization: {spec}."
-                if qual: text += f" Qualifications: {qual}."
+                text = f"{name} {desig}"
                 docs.append({"text":text,"type":"faculty","name":name,"designation":desig})
 
     if os.path.exists("aids_timetable_data.json"):
@@ -504,7 +668,9 @@ def load_knowledge_base() -> List[Dict]:
         faculty_map  = tt.get("faculty", {})
         for section, days in tt.get("timetable",{}).items():
             # Determine year label from section key
-            if "2nd_Year" in section:
+            if "3rd_Year" in section:
+                year_label = "3rd Year 2nd Semester"
+            elif "2nd_Year" in section:
                 year_label = "2nd Year 2nd Semester"
             else:
                 year_label = "1st Year 1st Semester"
@@ -777,7 +943,7 @@ def build_all_sections_overview(year: int = 1):
                 cells += f'<td style="border:1px solid #ccc;padding:7px 9px;text-align:center;font-size:11px">{code}</td>'
             else:
                 cells += f'<td {_TD_EMPTY}>—</td>'
-        label = sec.replace("_"," ").replace("1st Year ","").replace("2nd Year ","")
+        label = sec.replace("_"," ").replace("1st Year ","").replace("2nd Year ","").replace("3rd Year ","")
         rows += (f'<tr><td style="border:1px solid #ccc;padding:9px;font-weight:700;'
                  f'background:#f0f4ff;font-size:12px">{label}</td>{cells}</tr>')
     return f"""
@@ -1059,7 +1225,11 @@ def synthesize_answer(qa: QueryAnalysis, docs_with_scores: List[Tuple[Dict,float
                 matched = [f for f in _FACULTY_DATA
                            if any(lm in f.get("specialization","").lower() for lm in lemmas)]
                 if matched: return build_specialization_table(spec_label, matched)
-
+                faculty_match = _find_faculty_by_name(qa.original)
+                if faculty_match:
+                  return build_faculty_card(faculty_match)
+                if is_list_query:
+                  return build_faculty_list_table()  
         # 5. Explicit list request → full table
         if is_list_query:
             return build_faculty_list_table()
@@ -1072,7 +1242,23 @@ def synthesize_answer(qa: QueryAnalysis, docs_with_scores: List[Tuple[Dict,float
         return handle_timetable_query(qa)
 
     # ── Services / general — structured info card ─────────────────────────
-    top_texts = [d["text"] for d, s in docs_with_scores[:4] if s >= CONFIDENCE_THRESHOLD]
+    # Guard: if any faculty name appears in the query, return a faculty card
+    # instead of the generic renderer. Catches misclassified intents.
+    if intent in ("general", "services"):
+        q_lower = qa.original.lower()
+        q_words = [w for w in re.split(r'\s+', q_lower) if len(w) > 3]
+        for word in q_words:
+            for f in _FACULTY_DATA:
+                if word in f.get("name", "").lower():
+                    return build_faculty_card(f)
+        # Also try full fuzzy match for multi-word names
+        faculty_match = _find_faculty_by_name(qa.original)
+        if faculty_match:
+            return build_faculty_card(faculty_match)
+
+    top_texts = [d["text"]
+                 for d, s in docs_with_scores[:4]
+                 if s >= CONFIDENCE_THRESHOLD and d.get("type") != "faculty"]
     if not top_texts:
         return None
 
@@ -1212,6 +1398,18 @@ def get_response(query: str, conn_id: str = "default") -> str:
             direct = _find_faculty_by_name(query)
             if direct:
                 return build_faculty_card(direct)
+            # Token-level partial scan — catches single-word names like "prasanth", "sujana"
+            for tok in qa.tokens:
+                if len(tok) > 3:
+                    for f in _FACULTY_DATA:
+                        if tok in f.get("name", "").lower():
+                            return build_faculty_card(f)
+            # Raw word scan on original query — catches names spaCy didn't tokenise as nouns
+            q_words = [w for w in re.split(r'\s+', q_lower) if len(w) > 3]
+            for word in q_words:
+                for f in _FACULTY_DATA:
+                    if word in f.get("name", "").lower():
+                        return build_faculty_card(f)
 
     # ── RAG retrieval ─────────────────────────────────────────────────────
     results = retrieve(qa, top_k=TOP_K)
